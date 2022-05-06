@@ -22,7 +22,7 @@
                         <td>{{ $user->join_date }}</td>
                         <td>{{ $user->status == 1 ? "Active" : "Deactive" }}</td>
                         <td>
-                            <a href="{{ $user->id }}">Edit</a> | <a href="{{ $user->id }}">Delete</a>
+                            <a href="{{ Crypt::encrypt($user->id) }}">Edit</a> | <a href="{{ Crypt::encrypt($user->id) }}">Delete</a>
                         </td>
                     </tr>
                     @endforeach

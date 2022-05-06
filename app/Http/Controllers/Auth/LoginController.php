@@ -6,8 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Request;
-
+use Illuminate\Http\Request;
 class LoginController extends Controller
 {
     /*
@@ -24,11 +23,26 @@ class LoginController extends Controller
     use AuthenticatesUsers;
 
     /**
+     * The user has been authenticated.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  mixed  $user
+     * @return mixed
+     */
+    protected function authenticated(Request $request, $user)
+    {
+        if ($user->user_type == 'admin' ) {// do your magic here
+            return redirect()->route('admin.dashboard');
+        }else{
+            return redirect('/home');
+        }
+    }
+    /**
      * Where to redirect users after login.
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    // protected $redirectTo = RouteServiceProvider::HOME;
    
     public function authenticate(Request $request)
     {
@@ -36,8 +50,17 @@ class LoginController extends Controller
  
         if (Auth::attempt($credentials)) {
             // Authentication passed...
-            return redirect()->intended('dashboard');
+            // return redirect()->intended('dashboard');
         }
+        
+    }
+    public function credentials(Request $request)
+    {
+        return [
+            'email'     => $request->email,
+            'password'  => $request->password,
+            'status' => '1'
+        ];
     }
     /**
      * Create a new controller instance.

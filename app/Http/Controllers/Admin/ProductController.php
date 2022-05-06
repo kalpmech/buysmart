@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\View;
 
 class ProductController extends Controller
@@ -60,7 +61,8 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        $product = Product::find(Crypt::decrypt($id));
+        return View::make('admin.products.add-edit-product',compact('id'));
     }
 
     /**
@@ -83,6 +85,7 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $product = Product::find(Crypt::decrypt($id));
+        $product->delete();
     }
 }

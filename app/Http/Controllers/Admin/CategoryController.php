@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\View;
 
 class CategoryController extends Controller
@@ -27,7 +28,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return View::make('admin.categories.add-edit-category');
     }
 
     /**
@@ -38,7 +39,15 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            "name" => "required|min:2|max:191|string|unique:categories,name,NULL,id,deleted_at,NULL",
+            "description" => "required|min:2|max:191",
+            "status" => "required|integer|in:0,1",
+            "image" => "nullable|image|mimes:jpeg,png,jpg|max:5120",
+        ]);
+
+        Category::create($request->all());
+        return redirect()->route('admin.categories.index')->with('success','Category created successfully!');
     }
 
     /**
@@ -60,7 +69,8 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $category = Category::find(Crypt::decrypt($id));
+        return View::make('admin.categories.add-edit-category',compact('category'));
     }
 
     /**
@@ -72,7 +82,19 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $category = Category::find(Crypt::decrypt($id));
+        $categoryId = $category->id;
+
+        $request->validate([
+            "name" => "required|min:2|max:191|string|unique:categories,name,NULL,id,deleted_at,NULL".$categoryId,
+            "description" => "required|min:2|max:191",
+            "status" => "required|integer|in:0,1",
+            "image" => "nullable|image|mimes:jpeg,png,jpg|max:5120",
+        ]);
+    
+        $category->update($request->all());
+    
+        return redirect()->route('admin.categories.index')->with('success','Category updated successfully');
     }
 
     /**
@@ -82,7 +104,9 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
-        //
+    {    
+        $category = Category::find(Crypt::decrypt($id));
+        $category->delete();
+        return redirect()->route('admin.categories.index')->with('success','Category deleted successfully');
     }
 }

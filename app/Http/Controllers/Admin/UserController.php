@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\View;
 
 class UserController extends Controller
@@ -27,7 +28,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return View::make('admin.users.add-edit-user');
     }
 
     /**
@@ -60,7 +61,8 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::find(Crypt::decrypt($id));
+        return View::make('admin.users.add-edit-user',compact('id'));
     }
 
     /**
@@ -83,6 +85,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::find(Crypt::decrypt($id));
+        $user->delete();
     }
 }

@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,29 +22,20 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.'], function () {
-   
-    Route::group(['prefix' => 'users', 'as' => 'users.'], function () {
-        Route::get('/', [UserController::class, 'index'])->name('index');
-    });
-    
-    Route::group(['prefix' => 'categories', 'as' => 'categories.'], function () {
-        Route::get('/', [CategoryController::class, 'index'])->name('index');
-    });
-    
-    Route::group(['prefix' => 'products', 'as' => 'products.'], function () {
-        Route::get('/', [ProductController::class, 'index'])->name('index');
-    });
-    
-    Route::group(['prefix' => 'orders', 'as' => 'orders.'], function () {
-        Route::get('/', [OrderController::class, 'index'])->name('index');
-    });
+Route::group(['prefix' => 'admin', 'as' => 'admin.','middleware' => 'auth'], function () {
+       
+    Route::resource('users', UserController::class);
+    Route::resource('categories', CategoryController::class);
+    Route::get('categories/destory/{id}',[CategoryController::class, 'destroy'])->name('categories.destory');
+    Route::resource('products', ProductController::class);
+    Route::resource('orders', OrderController::class);
 
     Route::group(['prefix' => 'dashboard', 'as' => 'dashboard'], function () {
         Route::get('/', function () { return view('admin.dashboard'); });
     });
 
 });
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth');
+
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
