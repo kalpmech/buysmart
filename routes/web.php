@@ -25,6 +25,7 @@ Route::get('/', function () {
 Route::group(['prefix' => 'admin', 'as' => 'admin.','middleware' => 'auth'], function () {
        
     Route::resource('users', UserController::class);
+    Route::get('users/destory/{id}',[UserController::class, 'destroy'])->name('users.destory');
     Route::resource('categories', CategoryController::class);
     Route::get('categories/destory/{id}',[CategoryController::class, 'destroy'])->name('categories.destory');
     Route::resource('products', ProductController::class);

@@ -62,7 +62,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::find(Crypt::decrypt($id));
-        return View::make('admin.users.add-edit-user',compact('id'));
+        return View::make('admin.users.add-edit-user',compact('user'));
     }
 
     /**

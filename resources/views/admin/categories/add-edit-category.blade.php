@@ -85,7 +85,7 @@
                                     }
                                 @endphp
                                     
-                                @if($category->image != null )
+                                @if(isset($category) && $category->image != null )
                                     <img src="{{url('storage/categories/',$image)}}" alt="{{$image}}" width="100" height="100" iclass="img-thumbnail"/>
                                 @endisset
                             </div>
