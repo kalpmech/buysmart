@@ -12,22 +12,22 @@
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item">
+    <li class="nav-item  {{request()->routeIs('admin.dashboard.*') ? 'active' : '' }}">
         <a class="nav-link" href="{{route('admin.dashboard')}}"><i class="fas fa-fw fa-tachometer-alt"></i><span>Dashboard</span></a>
     </li>
    <!-- Nav Item - Charts -->
-   <li class="nav-item">
+   <li class="nav-item {{request()->routeIs('admin.users.*') ? 'active' : '' }}">
         <a class="nav-link" href="{{route('admin.users.index')}}"><i class="fas fa-fw fa-users"></i><span>Users</span></a>
     </li>
     <!-- Nav Item - Charts -->
-    <li class="nav-item">
+    <li class="nav-item {{request()->routeIs('admin.categories.*') ? 'active' : '' }}">
         <a class="nav-link" href="{{route('admin.categories.index')}}"><i class="fas fa-fw fa-list"></i><span>Categories</span></a>
     </li>
     <!-- Nav Item - Tables -->
-    <li class="nav-item">
+    <li class="nav-item {{request()->routeIs('admin.products.*') ? 'active' : '' }}">
         <a class="nav-link" href="{{route('admin.products.index')}}"><i class="fas fa-fw fa-boxes"></i><span>Products</span></a>
     </li>
-    <li class="nav-item">
+    <li class="nav-item {{request()->routeIs('admin.orders.*') ? 'active' : '' }}">
         <a class="nav-link" href="{{route('admin.orders.index')}}"><i class="fas fa-fw fa-truck-moving"></i><span>Orders</span></a>
     </li>
     <!-- Sidebar Toggler (Sidebar) -->
