@@ -47,15 +47,16 @@ class CategoryController extends Controller
             "image" => "nullable|image|mimes:jpeg,png,jpg|max:5120",
         ]);
 
+        $category = new Category();
+
         if($request->hasFile('image')){
             $request->image->store('categories', 'public');
+            $category->image = $request->image->hashName();
         }
 
-        $category = new Category();
         $category->name = $request->name;
         $category->description = $request->description;
         $category->status = $request->status;
-        $category->image = $request->image->hashName();
         $category->save();
 
         return redirect()->route('admin.categories.index')->with('success','Category created successfully!');
@@ -104,11 +105,11 @@ class CategoryController extends Controller
         ]);
         if($request->hasFile('image')){
             $request->image->store('categories', 'public');
+            $category->image = $request->image->hashName();
         }
         $category->name = $request->name;
         $category->description = $request->description;
         $category->status = $request->status;
-        $category->image = $request->image->hashName();
         $category->save();
         
         return redirect()->route('admin.categories.index')->with('success','Category updated successfully');
