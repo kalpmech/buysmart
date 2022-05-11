@@ -3,7 +3,10 @@
 <div class="container-fluid">
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Users List</h6>
+            <div class="row">
+                <div class="col-md-11"><h6 class="m-0 font-weight-bold text-primary">Users List</h6></div>
+                <div class="col-md-1"><a class="pull-left" href="{{route('admin.users.create') }}" ><i class="fas fa-plus fa-2x text-primary-300"></i></a></div>
+            </div>
         </div>
         <div class="card-body">
             <table class="table">
@@ -22,7 +25,11 @@
                         <td>{{ $user->join_date }}</td>
                         <td>{{ $user->status == 1 ? "Active" : "Deactive" }}</td>
                         <td>
-                            <a href="{{ route('admin.users.edit',Crypt::encrypt($user->id)) }}">Edit</a> | <a href="{{ Crypt::encrypt($user->id) }}">Delete</a>
+                            <form action="{{ route('admin.users.destroy',Crypt::encrypt($user->id)) }}" method="POST">
+                                @csrf
+                                @method('DELETE')   
+                                <a href="{{ route('admin.users.edit',Crypt::encrypt($user->id)) }}">Edit</a> | <a href="{{ Crypt::encrypt($user->id) }}">Delete</a>
+                            </form>
                         </td>
                     </tr>
                     @endforeach

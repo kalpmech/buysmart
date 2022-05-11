@@ -16,7 +16,9 @@
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="{{ asset('css/sb-admin-2.css')}}" rel="stylesheet">
+    <link href="{{ asset('css/sb-admin-2.css')}}" rel="stylesheet" />
+
+    @stack('custom-css')
 </head>
 
 <body id="page-top">
@@ -85,6 +87,7 @@
 
     <!-- Custom scripts for all pages-->
     <script src="{{ asset('js/sb-admin-2.js')}}"></script>
+    @stack('custom-scripts')
 
 </body>
 

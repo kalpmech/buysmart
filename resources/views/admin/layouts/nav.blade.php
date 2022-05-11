@@ -27,8 +27,9 @@
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{Auth::user()->full_name}}</span>
-                <img class="img-profile rounded-circle"
-                    src="img/undraw_profile.svg">
+                @if(Auth::user()->avatar != null )
+                    <img class="img-profile rounded-circle" src="{{url('storage/users/', Auth::user()->avatar)}}" alt="{{Auth::user()->avatar}}" width="100" height="100"/>
+                @endisset
             </a>
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
