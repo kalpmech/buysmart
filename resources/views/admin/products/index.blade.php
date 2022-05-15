@@ -30,7 +30,7 @@
                             <form action="{{ route('admin.products.destroy',Crypt::encrypt($product->id)) }}" method="POST">
                                 @csrf
                                 @method('DELETE')   
-                                <a href="{{ route('admin.products.edit',Crypt::encrypt($product->id)) }}">Edit</a> | <a href="{{ Crypt::encrypt($product->id) }}">Delete</a>
+                                <a href="{{ route('admin.products.edit',Crypt::encrypt($product->id)) }}">Edit</a> | <button type="submit" class="btn btn-link">Delete</button>
                             </form>
                         </td>
                     </tr>

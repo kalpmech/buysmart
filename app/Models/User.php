@@ -55,4 +55,9 @@ class User extends Authenticatable
     public function getfullNameAttribute() {
         return $this->first_name . ' ' . $this->last_name;
     }
+
+    public function scopeActive($query) 
+    {
+       return $query->where('status', 1);
+    }
 }

@@ -29,6 +29,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.','middleware' => 'auth'], fun
     Route::resource('categories', CategoryController::class);
     Route::get('categories/destory/{id}',[CategoryController::class, 'destroy'])->name('categories.destory');
     Route::resource('products', ProductController::class);
+    Route::get('products/destory/{id}',[ProductController::class, 'destroy'])->name('products.destory');
     Route::resource('orders', OrderController::class);
 
     Route::group(['prefix' => 'dashboard', 'as' => 'dashboard'], function () {
