@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('category_id')->unsigned();
             $table->unsignedBigInteger('user_id')->unsigned();
             $table->string('name', 100);
-            $table->string('description', 500)->default(null);
+            $table->longText('description')->default(null);
             $table->double('price', 10, 2)->default(0);
             $table->string('brand', 30)->nullable();
             $table->longText('tags')->nullable();

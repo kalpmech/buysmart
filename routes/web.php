@@ -5,6 +5,8 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Frontend\CartController;
+use App\Http\Controllers\Frontend\ProductController as FrontendProductController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -18,9 +20,16 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+    Route::get('/', [FrontendProductController::class,'homePage'])->name('home');
+    Route::get('/women', [FrontendProductController::class,'womenPage'])->name('women');
+    Route::get('/men', [FrontendProductController::class,'manPage'])->name('men');
+    Route::get('/kids', [FrontendProductController::class,'kidsPage'])->name('kids');
+    Route::get('{type}/product-deatils/{id}', [FrontendProductController::class,'show'])->name('product-details');
+
+    Route::get('/cart', [CartController::class, 'index'])->name('cart');
+    Route::post('/cart-store', [CartController::class, 'store'])->name('cart-store');
+    Route::post('/cart-update', [CartController::class, 'updateCart'])->name('cart-update');
+    Route::get('/cart-remove/{id}', [CartController::class, 'removeCart'])->name('cart-remove');
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.','middleware' => 'auth'], function () {
        
@@ -37,7 +46,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.','middleware' => 'auth'], fun
     });
 
 });
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth');
 
 Auth::routes();
 

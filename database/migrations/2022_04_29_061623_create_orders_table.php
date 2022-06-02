@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id')->unsigned();
-            $table->unsignedBigInteger('seller_id')->unsigned()->nullable();
             $table->string('status');
             $table->enum('type', ['cart', 'wishlist', 'order', 'later', 'freeproduct']);
             $table->longText('description')->nullable();
@@ -25,7 +24,6 @@ return new class extends Migration
             $table->string('rate_comment')->nullable();
             $table->boolean('rate_mail_sent')->default(false);
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('seller_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });

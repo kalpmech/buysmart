@@ -15,12 +15,12 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
+
         $categories = ['male','female','child'];
-        // echo "<pre/>";
-        // print_r($categories);
-        // die("EX");
+        $i = 1;
         foreach ($categories as $value) {
-            Category::Create(['name' => $value]);
+            Category::Create(['name' => $value,'gender'=>$i]);
+            $i++;
         }
     }
 }
