@@ -29,7 +29,7 @@ class ProductController extends Controller
     public function womenPage(Request $request)
     {
         $products = Product::query();
-        $categories = Category::where('gender',1)->Active()->pluck('name','id');
+        $categories = Category::where('gender',2)->Active()->pluck('name','id');
         if(!empty($request->all())){ 
             if (isset($request->category_id) && !empty($request->category_id)) {
                 $products->whereIn('category_id', $request->category_id);
@@ -75,7 +75,7 @@ class ProductController extends Controller
     public function kidsPage(Request $request)
     {  
         $products = Product::query();
-        $categories = Category::where('gender',1)->Active()->pluck('name','id');
+        $categories = Category::where('gender',3)->Active()->pluck('name','id');
         if(!empty($request->all())){ 
             if (isset($request->category_id) && !empty($request->category_id)) {
                 $products->whereIn('category_id', $request->category_id);

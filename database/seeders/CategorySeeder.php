@@ -16,7 +16,7 @@ class CategorySeeder extends Seeder
     public function run()
     {
 
-        $categories = ['male','female','child'];
+        $categories = ['male','female','Kids'];
         $i = 1;
         foreach ($categories as $value) {
             Category::Create(['name' => $value,'gender'=>$i]);

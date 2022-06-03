@@ -29,22 +29,15 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {   
-        if (Auth::check()) {
-            $cart = new Cart();
-            $cart->user_id = Auth::id();
-            $cart->product_id = $request->id;
-            $cart->name = $request->name;
-            $cart->price = $request->price;
-            $cart->quantity = $request->quantity;
-            $cart->total =  $request->price * $request->total;
-            $cart->save();
-            return Redirect::back()->with(['status'=>'Item added in cart!']);
-        }else{
-            return redirect()->route('login');
-
-        }
-
-
+        $cart = new Cart();
+        $cart->user_id = Auth::id();
+        $cart->product_id = $request->id;
+        $cart->name = $request->name;
+        $cart->price = $request->price;
+        $cart->quantity = $request->quantity;
+        $cart->total =  $request->price * $request->total;
+        $cart->save();
+        return Redirect::back()->with(['status'=>'Item added in cart!']);
     }
 
     /**
