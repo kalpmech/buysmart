@@ -19,6 +19,7 @@
             <table class="table">
                 <thead>
                     <th>Name</th>
+                    <th>Gender</th>
                     <th>Description</th>
                     <th>Status</th>
                     <th>Action</th>
@@ -27,6 +28,7 @@
                     @forelse($categories as $category)
                     <tr>
                         <td>{{ $category->name }}</td>
+                        <td>{{ Config::get('constants.gender')[$category->gender] }}</td>
                         <td>{{ Str::limit($category->description,100,'...') }}</td>
                         <td>{{ $category->status == 1 ? "Active" : "Deactive" }}</td>
                         <td>

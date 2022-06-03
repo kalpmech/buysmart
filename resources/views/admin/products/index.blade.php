@@ -14,6 +14,7 @@
                     <th>Category Name</th>
                     <th>Added By</th>
                     <th>Name</th>
+                    <th>Size</th>
                     <th>Brand</th>
                     <th>Status</th>
                     <th>Action</th>
@@ -24,6 +25,7 @@
                         <td>{{ $product->category->name  ?? 'None' }}</td>
                         <td>{{ $product->user->full_name ?? 'None' }}</td>
                         <td>{{ $product->name }}</td>
+                        <td>{{ $product->size }}</td>
                         <td>{{ $product->brand }}</td>
                         <td>{{ $product->status == 1 ? "Active" : "Deactive" }}</td>
                         <td>

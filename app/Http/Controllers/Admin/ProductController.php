@@ -53,6 +53,7 @@ class ProductController extends Controller
             "user_id" => "required|integer",
             "category_id" => "required|integer",
             "price" =>  "required|string",
+            "size" =>  "required|string",
             "brand" =>  "required|string",
             "rate_val" =>  "required|integer",
             // "image" => "nullable|image|mimes:jpeg,png,jpg|max:5120",
@@ -66,6 +67,7 @@ class ProductController extends Controller
         }
 
         $product->name = $request->name;
+        $product->size = $request->size;
         $product->description = $request->description;
         $product->tags = $request->tags;
         $product->features = $request->features;
@@ -127,6 +129,7 @@ class ProductController extends Controller
             "user_id" => "required|integer",
             "category_id" => "required|integer",
             "price" =>  "required|string",
+            "size" =>  "required|string",
             "brand" =>  "required|string",
             "rate_val" =>  "required|integer",
             // "image" => "nullable|image|mimes:jpeg,png,jpg|max:5120",
@@ -140,6 +143,7 @@ class ProductController extends Controller
         }
 
         $product->name = $request->name;
+        $product->size = $request->size;
         $product->description = $request->description;
         $product->tags = $request->tags;
         $product->features = $request->features;

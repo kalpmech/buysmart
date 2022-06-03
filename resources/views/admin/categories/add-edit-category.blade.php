@@ -38,6 +38,22 @@
                             <input type="text" class="form-control" name="name" id="name" required min="3" max="30" value="{{$name}}" placeholder="Enter name" />
                         </div>
                         <div class="form-group">
+                            <label>Gender</label>
+                            @php
+                                if(old('gender'))
+                                    $gender = old('gender');
+                                elseif(isset($category))
+                                    $gender = isset($category->gender) ? $category->gender : '';
+                                else
+                                    $gender = "1";
+                            @endphp
+                            <select class="custom-select" name="gender" id="gender">
+                                @foreach (Config::get('constants.gender') as $key => $item)
+                                    <option value="{{$key}}" {{ $key == $gender ? 'selected' : ''}}>{{$item}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <label for="description">Description</label>
                             @php
                             if(old('description'))

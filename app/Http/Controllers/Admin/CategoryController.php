@@ -44,6 +44,7 @@ class CategoryController extends Controller
             "name" => "required|min:2|max:191|string|unique:categories,name,NULL,id,deleted_at,NULL",
             "description" => "required|min:2|max:191",
             "status" => "required|integer|in:0,1",
+            "gender" => "required|integer|in:1,2,3",
             "image" => "nullable|image|mimes:jpeg,png,jpg|max:5120",
         ]);
 
@@ -57,6 +58,7 @@ class CategoryController extends Controller
         $category->name = $request->name;
         $category->description = $request->description;
         $category->status = $request->status;
+        $category->gender = $request->gender;
         $category->save();
 
         return redirect()->route('admin.categories.index')->with('success','Category created successfully!');
@@ -101,6 +103,7 @@ class CategoryController extends Controller
             "name" => "required|min:2|max:191|string|unique:categories,name,NULL,id,deleted_at,NULL".$categoryId,
             "description" => "required|min:2|max:191",
             "status" => "required|integer|in:0,1",
+            "gender" => "required|integer|in:1,2,3",
             "image" => "nullable|image|mimes:jpeg,png,jpg|max:5120",
         ]);
         if($request->hasFile('image')){
@@ -110,6 +113,7 @@ class CategoryController extends Controller
         $category->name = $request->name;
         $category->description = $request->description;
         $category->status = $request->status;
+        $category->gender = $request->gender;
         $category->save();
         
         return redirect()->route('admin.categories.index')->with('success','Category updated successfully');

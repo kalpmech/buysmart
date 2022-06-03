@@ -82,6 +82,22 @@
                             <input type="text" class="form-control" name="price" id="price" required min="3" max="30" value="{{$price}}" placeholder="Enter price" />
                         </div>
                         <div class="form-group">
+                            <label>Size</label>
+                            @php
+                                if(old('size'))
+                                    $size = old('size');
+                                elseif(isset($category))
+                                    $size = isset($category->size) ? $category->size : '';
+                                else
+                                    $size = "1";
+                            @endphp
+                            <select class="custom-select" name="size" id="size">
+                                @foreach (Config::get('constants.size') as $item)
+                                    <option value="{{$item}}" {{ $item == $size ? 'selected' : ''}}>{{$item}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <label for="name">Brand</label>
                             @php
                             if(old('brand'))
