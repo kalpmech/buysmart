@@ -1,28 +1,28 @@
 @extends('admin.layouts.app')
 @section('content')
 <div class="container-fluid">
-   <div class="card shadow mb-4">
+    <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">{{ isset($product) ? "Edit" : "Add"}} Product</h6>
         </div>
         @if (isset($product))
             <form method="POST" enctype="multipart/form-data" action="{{route('admin.products.update',Crypt::encrypt($product->id))}}">
-            @method('PUT')
-        @else
-            <form method="POST" enctype="multipart/form-data" action="{{route('admin.products.store')}}">
-        @endif
-            @csrf
+                @method('PUT')
+                @else
+                    <form method="POST" enctype="multipart/form-data" action="{{route('admin.products.store')}}">
+                @endif
+                @csrf
             
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-            <div class="card-body">
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+                <div class="card-body">
                 <div class="row">
                     <div class="col-md-8 offset-md-2">
                         <div class="form-group">
@@ -172,6 +172,19 @@
                                 <option value="0" {{ isset($status) == 0 ? 'selected' : ''}}>Deactive</option>
                             </select>
                         </div>
+                        <div class="form-group">
+                            <label for="images">Images</label>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="images" name="images[]" required multiple />
+                                <label class="custom-file-label" for="images">Choose file</label>
+                            </div>
+                            @isset($product->images)    
+                                @foreach($product->images as $image)
+                                <img src="{{Storage::url($image->path.'/'.$image->name)}}" width="100" height="100" class="img-thumbnail" />
+                                @endforeach
+                            @endisset
+                            </div>
+                        </div>  
                     </div>
                 </div>
                 <div class="card-footer">

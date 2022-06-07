@@ -21,6 +21,10 @@ class ProductController extends Controller
         return view('welcome');
     }
     
+    public function contactus()
+    {
+        return view('frontend.contactus');
+    }
     /**
      * Display a listing of the resource.
      *

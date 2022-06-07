@@ -15,12 +15,17 @@ class Product extends Model
 
     public function category()
     {
-        return $this->belongsTo(Category::class, 'category_id')->where('gender','2');;
+        return $this->belongsTo(Category::class, 'category_id');
     }
 
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function images()
+    {
+        return $this->hasMany(ProductImage::class);
     }
 
     public function scopeActive($query) 
@@ -30,7 +35,6 @@ class Product extends Model
 
     public function scopeFilter($query, $params)
     { 
-        
         if (isset($params['size']) && !empty($params['size'])) {
             $query->whereIn('size', array_values($params['size']));
         }

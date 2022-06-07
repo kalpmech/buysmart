@@ -24,6 +24,18 @@ class UserSeeder extends Seeder
             'user_type' => 'admin',
             'is_terms_accepted' => 1,
         ];
+
+        $frontUser = [
+            'first_name' => 'Kalpesh',
+            'last_name' => 'Patel',
+            'email' => 'customer@buysmart.com',
+            'password' => bcrypt('Test123#'),
+            'status' => 1,
+            'user_type' => 'customer',
+            'is_terms_accepted' => 1,
+        ];
+
         $user = User::FirstOrCreate(['email' => $user['email']], $user);
+        $frontUser = User::FirstOrCreate(['email' => $frontUser['email']], $frontUser);
     }
 }

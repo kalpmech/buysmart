@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-xl-3 col-lg-2">
                 <div class="header__logo">
-                    <a href="./index.html"><img src="img/logo.png" alt=""></a>
+                    <a href="{{route('home')}}"><h3>BuySmart</h3></a>
                 </div>
             </div>
             <div class="col-xl-6 col-lg-7">
@@ -13,7 +13,7 @@
                         <li><a href="{{route('women')}}">Women’s</a></li>
                         <li><a href="{{route('men')}}">Men’s</a></li>
                         <li><a href="{{route('kids')}}">Kid's</a></li>
-                        <li><a href="./contact.html">Contact</a></li>
+                        <li><a href="{{route('contactus')}}">Contact</a></li>
                     </ul>
                 </nav>
             </div>
@@ -26,19 +26,15 @@
                         </div>                       
                     @else
                     <div class="header__right__auth">
-                        <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                            {{ __('Logout') }}
-                        </a>
+                        <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" style="">{{ __('Logout') }}</a>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                             @csrf
                         </form>
                     </div>
                     @endguest
-                    {{-- @auth --}}
-                        <ul class="header__right__widget">
-                            <li><a href="{{route('cart')}}"><span class="icon_bag_alt"></span></a></li>
-                        </ul>    
-                    {{-- @endauth --}}
+                    <ul class="header__right__widget">
+                        <li><a href="{{route('cart')}}"><span class="icon_bag_alt"></span></a></li>
+                    </ul>    
                 </div>
             </div>
         </div>

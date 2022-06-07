@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Frontend\CartController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Frontend\ProductController as FrontendProductController;
 use Illuminate\Support\Facades\Auth;
 
@@ -24,6 +25,7 @@ use Illuminate\Support\Facades\Auth;
     Route::get('/women', [FrontendProductController::class,'womenPage'])->name('women');
     Route::get('/men', [FrontendProductController::class,'manPage'])->name('men');
     Route::get('/kids', [FrontendProductController::class,'kidsPage'])->name('kids');
+    Route::get('/contactus', [FrontendProductController::class,'contactus'])->name('contactus');
     Route::get('{type}/product-deatils/{id}', [FrontendProductController::class,'show'])->name('product-details');
 
     Route::group(['prefix' => 'cart','middleware' => 'auth'], function () {

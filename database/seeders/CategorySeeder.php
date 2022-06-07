@@ -16,11 +16,10 @@ class CategorySeeder extends Seeder
     public function run()
     {
 
-        $categories = ['male','female','Kids'];
-        $i = 1;
+        $categories = ['Coats','Jackets','Dresses','Shirts','T-shirts','Jeans'];
+        $i = [1=>1,2=>2,3=>3];
         foreach ($categories as $value) {
-            Category::Create(['name' => $value,'gender'=>$i]);
-            $i++;
+            Category::Create(['name' => $value,'gender'=>array_rand($i)]);
         }
     }
 }

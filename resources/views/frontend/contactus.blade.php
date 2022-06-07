@@ -11,15 +11,15 @@
                                 <ul>
                                     <li>
                                         <h6><i class="fa fa-map-marker"></i> Address</h6>
-                                        <p>160 Pennsylvania Ave NW, Washington, Castle, PA 16101-5161</p>
+                                        <p>New Jersey, USA</p>
                                     </li>
                                     <li>
                                         <h6><i class="fa fa-phone"></i> Phone</h6>
-                                        <p><span>125-711-811</span><span>125-668-886</span></p>
+                                        <p><span>125-7111-811</span><span>125-668-88216</span></p>
                                     </li>
                                     <li>
                                         <h6><i class="fa fa-headphones"></i> Support</h6>
-                                        <p>Support.photography@gmail.com</p>
+                                        <p>contact-us@buysmart.com</p>
                                     </li>
                                 </ul>
                             </div>

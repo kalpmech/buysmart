@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductImage;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
@@ -20,7 +21,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::with(['category','user'])->orderBy('id', 'DESC')->paginate(15);
+        $products = Product::with(['category','user','images'])->orderBy('id', 'DESC')->paginate(15);
         return View::make('admin.products.index', compact('products'));
     }
 
@@ -56,15 +57,10 @@ class ProductController extends Controller
             "size" =>  "required|string",
             "brand" =>  "required|string",
             "rate_val" =>  "required|integer",
-            // "image" => "nullable|image|mimes:jpeg,png,jpg|max:5120",
+            "images.*" => "nullable|image|mimes:jpeg,png,jpg|max:5120",
         ]);
 
         $product = new Product();
-
-        if($request->hasFile('image')){
-            $request->image->store('categories', 'public');
-            $product->image = $request->image->hashName();
-        }
 
         $product->name = $request->name;
         $product->size = $request->size;
@@ -78,6 +74,22 @@ class ProductController extends Controller
         $product->rate_val = $request->rate_val;
         $product->status = $request->status;
         $product->save();
+
+        if($request->hasFile('images')){
+            $images = $request->file('images');
+            foreach($images as $image) {
+                $name = $image->hashName();
+                $paths = 'products'."/".$product->id;
+            
+                Storage::put($paths, $image,'public');
+                
+                ProductImage::create([
+                    'product_id' => $product->id,
+                    'name' => $name,
+                    'path' => $paths
+                ]);
+            }
+        }
 
         return redirect()->route('admin.products.index')->with('success','Product created successfully!');
     }
@@ -101,7 +113,7 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $product = Product::find(Crypt::decrypt($id));
+        $product = Product::with('images')->find(Crypt::decrypt($id));
         $categories = Category::Active()->get()->pluck('name','id');
         $users = User::Active()->get()->pluck('full_name','id');
 
@@ -132,14 +144,26 @@ class ProductController extends Controller
             "size" =>  "required|string",
             "brand" =>  "required|string",
             "rate_val" =>  "required|integer",
-            // "image" => "nullable|image|mimes:jpeg,png,jpg|max:5120",
+            "images.*" => "nullable|image|mimes:jpeg,png,jpg|max:5120",
         ]);
 
-        // $product = new Product();
-
-        if($request->hasFile('image')){
-            $request->image->store('categories', 'public');
-            $product->image = $request->image->hashName();
+        if($request->hasFile('images')){
+            $images = $request->file('images');
+            $paths ='products'."/".$productId;
+                           
+            if(!Storage::exists($paths)){
+                Storage::makeDirectory($paths, 0755, true, true);
+            }
+            foreach($images as $image) {
+                $name = $image->hashName();
+                Storage::put('public/'.$paths,$image,'public');
+                
+                ProductImage::create([
+                    'product_id' => $productId,
+                    'name' => $name,
+                    'path' => $paths
+                ]);
+            }
         }
 
         $product->name = $request->name;

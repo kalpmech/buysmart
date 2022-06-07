@@ -53,7 +53,7 @@ class CartController extends Controller
         $cart->quantity = $request->quantity;
         $cart->total = $total;
         $cart->save();
-        return Redirect::back()->with(['status'=>'Item update successfully!!']);
+        return Redirect::back()->with(['status'=>'Cart updated successfully !!']);
     }
 
     /**
