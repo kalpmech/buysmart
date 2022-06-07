@@ -44,7 +44,7 @@ class ProductController extends Controller
         }else{
             $products->whereIn('category_id',array_keys($categories->toArray()));
         }
-        $products = $products->orderBy('id','desc')->Active()->get();
+        $products = $products->orderBy('id','desc')->Active()->with('images')->get();
         return view('frontend.women', compact('categories','products'));
     }
 
@@ -68,6 +68,7 @@ class ProductController extends Controller
             $products->whereIn('category_id',array_keys($categories->toArray()));
         }
         $products = $products->orderBy('id','desc')->Active()->get();
+        
         return view('frontend.men', compact('categories','products'));
     }
 

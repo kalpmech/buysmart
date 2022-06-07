@@ -23,7 +23,7 @@
                     <ul>
                         <li><a href="#">About</a></li>
                         <li><a href="#">Blogs</a></li>
-                        <li><a href="#">Contact</a></li>
+                        <li><a href="{{ route('contactus') }}">Contact</a></li>
                         <li><a href="#">FAQ</a></li>
                     </ul>
                 </div>
@@ -49,7 +49,7 @@
             <div class="col-lg-12">
                 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                 <div class="footer__copyright__text">
-                    <p>Copyright &copy; {{config('app.name', 'Buy Smart')}} {{ Carbon\Carbon::now()->format('Y')}}</a></p>
+                    <p>Copyright &copy; {{config('app.name', 'BuySmart')}} {{ Carbon\Carbon::now()->format('Y')}}</a></p>
                 </div>
                 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
             </div>

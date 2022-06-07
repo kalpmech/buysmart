@@ -65,7 +65,9 @@
                         <ul>
                             <li>Total <span>$ {{array_sum($total)}}</span></li>
                         </ul>
-                        <a href="#" class="primary-btn">Proceed to checkout</a>
+                        @if (array_sum($total) > 0)
+                            <a href="{{ route('orders.place') }}" class="primary-btn">Proceed to checkout</a>
+                        @endif 
                     </div>
                 </div>
             </div>

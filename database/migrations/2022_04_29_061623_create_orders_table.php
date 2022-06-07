@@ -16,13 +16,11 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id')->unsigned();
-            $table->string('status');
-            $table->enum('type', ['cart', 'wishlist', 'order', 'later', 'freeproduct']);
-            $table->longText('description')->nullable();
-            $table->dateTime('end_date')->nullable(); //cancelled or paid
-            $table->integer('rate')->nullable();
-            $table->string('rate_comment')->nullable();
-            $table->boolean('rate_mail_sent')->default(false);
+            $table->string('status')->default('confirmed');
+            $table->double('order_total', 10, 2)->default(0);
+            $table->enum('pay_type', ['creditcard', 'debitcard', 'cash']);
+            $table->longText('product_details')->nullable();
+            $table->boolean('mail_sent')->default(false);
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();

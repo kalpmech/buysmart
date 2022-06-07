@@ -19,7 +19,13 @@
                             @foreach ($products as $product)
                                 <div class="col-lg-4 col-md-6">
                                     <div class="product__item">
-                                        <div class="product__item__pic set-bg" data-setbg="{{ asset('img/shop/shop-1.jpg')}}">
+                                            @forelse($product->images as $image)
+                                                @if ($loop->first)
+                                                    <div class="product__item__pic set-bg" data-setbg="{{\Storage::url($image->path.'/'.$image->name)}}">
+                                                @endif
+                                            @empty
+                                                <div class="product__item__pic set-bg" data-setbg="{{ asset('img/shop/shop-1.jpg')}}">
+                                            @endforelse
                                             <ul class="product__hover">
                                                 <form  id="{{$product->id}}-cartstore" action="{{route('cart-store')}}" method="POST" enctype="multipart/form-data">
                                                     @csrf
