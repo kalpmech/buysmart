@@ -16,7 +16,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::paginate(15);
+        $orders = Order::with('user')->paginate(15);
         return View::make('admin.orders.index', compact('orders'));
     }
 

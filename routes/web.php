@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Frontend\CartController;
@@ -27,6 +28,7 @@ use Illuminate\Support\Facades\Auth;
     Route::get('/men', [FrontendProductController::class,'manPage'])->name('men');
     Route::get('/kids', [FrontendProductController::class,'kidsPage'])->name('kids');
     Route::get('/contactus', [FrontendProductController::class,'contactus'])->name('contactus');
+    Route::get('/my-account', [FrontendProductController::class,'myAccount'])->name('my-account')->middleware('auth');
     Route::get('{type}/product-deatils/{id}', [FrontendProductController::class,'show'])->name('product-details');
 
     Route::group(['middleware' => 'auth'], function () {
@@ -49,7 +51,7 @@ use Illuminate\Support\Facades\Auth;
         Route::get('products/destory/{id}',[ProductController::class, 'destroy'])->name('products.destory');
         Route::resource('orders', OrderController::class);
         Route::group(['prefix' => 'dashboard', 'as' => 'dashboard'], function () {
-            Route::get('/', function () { return view('admin.dashboard'); });
+            Route::get('/',[DashboardController::class, 'index']);
         });
     });
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth');

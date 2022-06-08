@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\View;
 
@@ -24,6 +25,12 @@ class ProductController extends Controller
     public function contactus()
     {
         return view('frontend.contactus');
+    }
+    
+    public function myAccount()
+    {
+        $user =  Auth::user();
+        return view('frontend.my-account', compact('user'));
     }
     /**
      * Display a listing of the resource.

@@ -22,6 +22,9 @@
                     <h6>Quick links</h6>
                     <ul>
                         <li><a href="#">About</a></li>
+                        @auth
+                        <li><a href="{{ route('my-account') }}">My Account</a></li>    
+                        @endauth
                         <li><a href="#">Blogs</a></li>
                         <li><a href="{{ route('contactus') }}">Contact</a></li>
                         <li><a href="#">FAQ</a></li>
