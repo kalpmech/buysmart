@@ -13,6 +13,7 @@
                 <thead>
                     <th>Name</th>
                     <th>Email</th>
+                    <th>User Type</th>
                     <th>Join Date</th>
                     <th>Status</th>
                     <th>Action</th>
@@ -22,6 +23,7 @@
                     <tr>
                         <td>{{ $user->full_name }}</td>
                         <td>{{ $user->email }}</td>
+                        <td>{{ ucfirst($user->user_type) }}</td>
                         <td>{{ $user->join_date }}</td>
                         <td>{{ $user->status == 1 ? "Active" : "Deactive" }}</td>
                         <td>

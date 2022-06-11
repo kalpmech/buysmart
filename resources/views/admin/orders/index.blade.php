@@ -16,9 +16,9 @@
                 <thead>
                     <th>#</th>
                     <th>Customer Name</th>
-                    <th>Gender</th>
+                    <th>Status</th>
                     <th>Payment Type</th>
-                    <th>Order Total</th>
+                    <th>Order Amount</th>
                 </thead>
                 <tbody>
                     @forelse($orders as $order)
@@ -27,7 +27,7 @@
                         <td>{{ $order->user->fullName }}</td>
                         <td>{{ $order->status }}</td>
                         <td>{{ $order->pay_type }}</td>
-                        <td>{{ $order->order_total }}</td>
+                        <td>${{ number_format($order->order_total,2) }}</td>
                     </tr>
                     @empty
                         <tr><td colspan="4" align="center">No Order found!</td></tr>

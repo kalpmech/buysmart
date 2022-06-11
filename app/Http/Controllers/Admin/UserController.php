@@ -136,6 +136,7 @@ class UserController extends Controller
         $user->zip_code = $request->zip_code;
         $user->date_of_birth = $request->date_of_birth;
         $user->phone = $request->phone;
+        $user->user_type = $request->user_type;
         $user->status = $request->status;
         $user->save();
         

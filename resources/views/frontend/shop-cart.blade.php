@@ -32,14 +32,14 @@
                                             <h6>{{$item->name}}</h6>
                                         </div>
                                     </td>
-                                    <td class="cart__price">{{$item->price}}</td>
+                                    <td class="cart__price">$ {{number_format($item->price,2)}}</td>
                                     <td class="cart__quantity" >
                                         <div class="pro-qty" data-cart-id="{{$item->id}}">
                                             <input type="text" id="qtyVal" value="{{$item->quantity}}">
                                         </div>
                                     </td>
                                     @php $subTotal = $item->price * $item->quantity; $total[] = $subTotal; @endphp
-                                    <td class="cart__total">{{$subTotal}} </td>
+                                    <td class="cart__total">$ {{number_format($subTotal,2)}} </td>
                                     <td class="cart__close"><a href="{{route('cart-remove', Crypt::encrypt($item->id)) }}"><span class="icon_close"></span></a></td>
                                 </tr>
                                 @empty
@@ -63,11 +63,25 @@
                     <div class="cart__total__procced">
                         <h6>Cart total</h6>
                         <ul>
-                            <li>Total <span>$ {{array_sum($total)}}</span></li>
+                            <li>Total <span>$ {{number_format(array_sum($total),2)}}</span></li>
+                            
+                            @if (array_sum($total) > 0)
+                                <form action="{{ route('orders.place') }}" id="orderplacesubmit" method="post">
+                                @csrf
+                                    <li style="margin-bottom: 10px;">Payment Type
+                                        <select name="pay_type" class="form-control">
+                                            <option value="creditcard">Credit Card</option>
+                                            <option value="debitcard">Debit Card</option>
+                                            <option value="cod">Cash On Delivery</option>
+                                        </select>
+                                    </li>
+                                    <li>
+                                        <a id="order-place" class="primary-btn">Proceed to checkout</a>
+                                    </li>
+                                </form>
+                            @endif 
                         </ul>
-                        @if (array_sum($total) > 0)
-                            <a href="{{ route('orders.place') }}" class="primary-btn">Proceed to checkout</a>
-                        @endif 
+                       
                     </div>
                 </div>
             </div>
@@ -88,7 +102,6 @@
                     id : $(this).data("cart-id"),
                     quantity : $('#qtyVal').val(),
                 };
-                 console.log(formData);
                 $.ajax({
                     type:'POST',
                     url:"{{ route('cart-update') }}",
@@ -98,6 +111,9 @@
                     }
                 });
             });
+                $( "#order-place" ).click(function() {
+                    $( "#orderplacesubmit" ).submit();
+                });
         });
     </script>
         

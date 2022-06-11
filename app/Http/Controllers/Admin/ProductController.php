@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\View;
@@ -51,7 +52,6 @@ class ProductController extends Controller
             "tags" => "required|min:2|max:191",
             "features" => "required|min:2|max:191",
             "status" => "required|integer|in:0,1",
-            "user_id" => "required|integer",
             "category_id" => "required|integer",
             "price" =>  "required|string",
             "size" =>  "required|string",
@@ -67,7 +67,7 @@ class ProductController extends Controller
         $product->description = $request->description;
         $product->tags = $request->tags;
         $product->features = $request->features;
-        $product->user_id = $request->user_id;
+        $product->user_id = Auth::id();
         $product->category_id = $request->category_id;
         $product->price = $request->price;
         $product->brand = $request->brand;
@@ -77,9 +77,12 @@ class ProductController extends Controller
 
         if($request->hasFile('images')){
             $images = $request->file('images');
+            $paths = 'public/products'."/".$product->id;
+            if(!Storage::exists($paths)){
+                Storage::makeDirectory($paths, 0755, true, true);
+            }
             foreach($images as $image) {
                 $name = $image->hashName();
-                $paths = 'products'."/".$product->id;
             
                 Storage::put($paths, $image,'public');
                 
@@ -138,7 +141,6 @@ class ProductController extends Controller
             "tags" => "required|min:2|max:191",
             "features" => "required|min:2|max:191",
             "status" => "required|integer|in:0,1",
-            "user_id" => "required|integer",
             "category_id" => "required|integer",
             "price" =>  "required|string",
             "size" =>  "required|string",
@@ -149,14 +151,14 @@ class ProductController extends Controller
 
         if($request->hasFile('images')){
             $images = $request->file('images');
-            $paths ='products'."/".$productId;
+            $paths ='public/products/'.$productId;
                            
             if(!Storage::exists($paths)){
                 Storage::makeDirectory($paths, 0755, true, true);
             }
             foreach($images as $image) {
                 $name = $image->hashName();
-                Storage::put('public/'.$paths,$image,'public');
+                Storage::put($paths,$image,'public');
                 
                 ProductImage::create([
                     'product_id' => $productId,
@@ -171,7 +173,7 @@ class ProductController extends Controller
         $product->description = $request->description;
         $product->tags = $request->tags;
         $product->features = $request->features;
-        $product->user_id = $request->user_id;
+        $product->user_id = Auth::id();
         $product->category_id = $request->category_id;
         $product->price = $request->price;
         $product->brand = $request->brand;
@@ -191,8 +193,9 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $product = Product::find(Crypt::decrypt($id));
-        // Storage::disk('public')->delete('products/'.$product->image);
+        $product->images()->delete();
         $product->delete();
+        Storage::deleteDirectory('public/products/'.Crypt::decrypt($id));
         return redirect()->route('admin.products.index')->with('success','Product deleted successfully');
     }
 }

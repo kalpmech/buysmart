@@ -32,7 +32,7 @@ use Illuminate\Support\Facades\Auth;
     Route::get('{type}/product-deatils/{id}', [FrontendProductController::class,'show'])->name('product-details');
 
     Route::group(['middleware' => 'auth'], function () {
-        Route::get('/placeOrder', [FrontendOrderController::class,'placeOrder'])->name('orders.place');
+        Route::post('/placeorder', [FrontendOrderController::class,'placeOrder'])->name('orders.place');
     });
 
     Route::group(['prefix' => 'cart','middleware' => 'auth'], function () {

@@ -36,7 +36,7 @@ class OrderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function placeOrder()
+    public function placeOrder(Request $request)
     {   
         $userCart = Cart::where('user_id',Auth::id())->get();
 
@@ -55,7 +55,7 @@ class OrderController extends Controller
 
         $order->product_details = json_encode($cartProducts);
         $order->order_total = array_sum($total);
-        $order->pay_type = 'creditcard';
+        $order->pay_type = $request->pay_type;
         $order->status = 'confirmed';
         $order->save();
 

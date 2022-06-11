@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-xl-3 col-lg-2">
                 <div class="header__logo">
-                    <a href="{{route('home')}}"><h3>BuySmart</h3></a>
+                    <a href="{{route('home')}}"><h3><b><i>BuySmart</i></b></h3></a>
                 </div>
             </div>
             <div class="col-xl-6 col-lg-7">
@@ -19,6 +19,15 @@
             </div>
             <div class="col-lg-3">
                 <div class="header__right">
+                    <ul class="header__right__widget">
+                        <li><a href="{{route('cart')}}"><span class="icon_bag_alt"></span></a></li>
+                        <li>@auth
+                                @if (Auth::user()->avatar != null)
+                                    <img class="img-profile rounded-circle" src="{{url('storage/users/', Auth::user()->avatar)}}" alt="{{Auth::user()->avatar}}" width="40" height="40"/>
+                                @endif
+                            @endauth
+                        </li>
+                    </ul>    
                     @guest
                         <div class="header__right__auth">
                             <a href="{{ route('login') }}">Login</a>
@@ -26,15 +35,14 @@
                         </div>                       
                     @else
                     <div class="header__right__auth">
-                        <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" style="">{{ __('Logout') }}</a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                            @csrf
-                        </form>
+                        <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('Logout') }}
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                        </a>
+                        
                     </div>
                     @endguest
-                    <ul class="header__right__widget">
-                        <li><a href="{{route('cart')}}"><span class="icon_bag_alt"></span></a></li>
-                    </ul>    
                 </div>
             </div>
         </div>

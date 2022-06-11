@@ -13,7 +13,7 @@
                 <thead>
                     <th>Category Name</th>
                     <th>Added By</th>
-                    <th>Name</th>
+                    <th>Product Name</th>
                     <th>Size</th>
                     <th>Brand</th>
                     <th>Status</th>

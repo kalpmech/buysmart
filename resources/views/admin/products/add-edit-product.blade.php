@@ -38,22 +38,6 @@
                             <input type="text" class="form-control" name="name" id="name" required min="3" max="30" value="{{$name}}" placeholder="Enter name" />
                         </div>
                         <div class="form-group">
-                            <label>User Name</label>
-                            @php
-                                if(old('user_id'))
-                                    $user_id = old('user_id');
-                                elseif(isset($product))
-                                    $user_id = isset($product->user_id) ? $product->user_id : '';
-                                else
-                                    $user_id = "";
-                            @endphp
-                            <select class="custom-select" name="user_id" id="user_id" required>
-                                @foreach ($users as $key => $value)
-                                    <option value="{{$key}}" {{ isset($user_id) == $key ? 'selected' : ''}}>{{$value}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group">
                             <label>Category</label>
                             @php
                                 if(old('category'))
@@ -175,7 +159,7 @@
                         <div class="form-group">
                             <label for="images">Images</label>
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="images" name="images[]" required multiple />
+                                <input type="file" class="custom-file-input" id="images" name="images[]"  multiple />
                                 <label class="custom-file-label" for="images">Choose file</label>
                             </div>
                             @isset($product->images)    
