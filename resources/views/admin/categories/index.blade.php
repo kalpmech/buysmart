@@ -18,7 +18,7 @@
 
             <table class="table">
                 <thead>
-                    <th>Gender</th>
+                    <th>Department</th>
                     <th>Category Name</th>
                     <th>Description</th>
                     <th>Status</th>

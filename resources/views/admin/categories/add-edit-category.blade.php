@@ -26,7 +26,7 @@
                 <div class="row">
                     <div class="col-md-8 offset-md-2">
                         <div class="form-group">
-                            <label for="name">Name</label>
+                            <label for="name">Category Name</label>
                             @php
                             if(old('name'))
                                 $name = old('name');
@@ -38,7 +38,7 @@
                             <input type="text" class="form-control" name="name" id="name" required min="3" max="30" value="{{$name}}" placeholder="Enter name" />
                         </div>
                         <div class="form-group">
-                            <label>Gender</label>
+                            <label>Department</label>
                             @php
                                 if(old('gender'))
                                     $gender = old('gender');

@@ -76,7 +76,7 @@
                                         </select>
                                     </li>
                                     <li>
-                                        <a id="order-place" class="primary-btn">Proceed to checkout</a>
+                                        <a id="order-place" class="primary-btn" style="color: white">Proceed to checkout</a>
                                     </li>
                                 </form>
                             @endif 
