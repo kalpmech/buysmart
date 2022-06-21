@@ -42,14 +42,14 @@
                             @php
                                 if(old('category'))
                                     $category_id = old('category_id');
-                                elseif(isset($product))
+                                elseif(isset($product->category_id))
                                     $category_id = isset($product->category_id) ? $product->category_id : '';
                                 else
-                                    $category_id = "";
+                                    $category_id = null;
                             @endphp
                             <select class="custom-select" name="category_id" id="category_id" required>
                                 @foreach ($categories as $key => $value)
-                                    <option value="{{$key}}" {{ isset($category_id) == $key ? 'selected' : ''}}>{{$value}}</option>
+                                    <option value="{{$key}}" {{ $category_id == $key ? 'selected' : ''}}>{{$value}}</option>
                                 @endforeach
                             </select>
                         </div>
