@@ -15,7 +15,7 @@
                                     </li>
                                     <li>
                                         <h6><i class="fa fa-phone"></i> Phone</h6>
-                                        <p><span>125-7111-811</span><span>125-668-88216</span></p>
+                                        <p><span>+1-929-711-8155</span><span>+1-929-668-8821</span></p>
                                     </li>
                                     <li>
                                         <h6><i class="fa fa-headphones"></i> Support</h6>
