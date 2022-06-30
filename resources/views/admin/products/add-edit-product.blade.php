@@ -165,6 +165,7 @@
                             @isset($product->images)    
                                 @foreach($product->images as $image)
                                 <img src="{{Storage::url($image->path.'/'.$image->name)}}" width="100" height="100" class="img-thumbnail" />
+                                    <a class="imageDelete" data-id='{{$image->id}}' data-name='{{$image->name}}' data-path='{{$image->path}}'><i class="fas fa-fw fa-trash"></i></a>
                                 @endforeach
                             @endisset
                             </div>
@@ -177,4 +178,32 @@
             </form>
    </div>
 </div>
+@push('custom-scripts')
+<script>
+        $(document).ready(function(e){
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $(document).on('click', '.imageDelete', function(e) {          
+                e.preventDefault();
+                var formData = {
+                    id : $(this).data("id"),
+                    name : $(this).data("name"),
+                    path : $(this).data("path"),
+                };
+                $.ajax({
+                    type:'POST',
+                    url:"{{ route('admin.products.imageDelete') }}",
+                    data:formData,
+                    success:function(data){
+                        location.reload();
+                    }
+                });
+            });
+        });
+
+</script>
+@endpush
 @endsection

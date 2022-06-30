@@ -49,6 +49,7 @@ use Illuminate\Support\Facades\Auth;
         Route::get('categories/destory/{id}',[CategoryController::class, 'destroy'])->name('categories.destory');
         Route::resource('products', ProductController::class);
         Route::get('products/destory/{id}',[ProductController::class, 'destroy'])->name('products.destory');
+        Route::post('products/imageDelete',[ProductController::class,'imageDelete'])->name('products.imageDelete');
         Route::resource('orders', OrderController::class);
         Route::group(['prefix' => 'dashboard', 'as' => 'dashboard'], function () {
             Route::get('/',[DashboardController::class, 'index']);

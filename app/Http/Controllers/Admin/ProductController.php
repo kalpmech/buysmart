@@ -10,6 +10,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\View;
 
@@ -197,5 +198,15 @@ class ProductController extends Controller
         $product->delete();
         Storage::deleteDirectory('public/products/'.Crypt::decrypt($id));
         return redirect()->route('admin.products.index')->with('success','Product deleted successfully');
+    }
+
+    public function imageDelete(Request $request)
+    {
+        $product = ProductImage::find($request->id);
+        $paths = $request->path.'/'.$request->name;
+        Storage::delete($paths);
+        $product->delete();
+        return Redirect::back()->with(['status'=>'Image deleted successfully !!']);
+
     }
 }
